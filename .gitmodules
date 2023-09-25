@@ -1,0 +1,6 @@
+[submodule "drv-parts"]
+	path = drv-parts
+	url = git@github.com:DavHau/drv-parts.git
+[submodule "dream2nix"]
+	path = dream2nix
+	url = git@github.com:nix-community/dream2nix.git
