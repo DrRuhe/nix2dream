@@ -1,4 +1,8 @@
-{config,dream2nix,...}:{
+{
+  config,
+  dream2nix,
+  ...
+}: {
   # select builtins-derivation as a backend for this package
   imports = [dream2nix.modules.dream2nix.mkDerivation];
 
