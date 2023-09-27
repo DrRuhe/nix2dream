@@ -1,18 +1,18 @@
 {
-  inputs,
+  root,
+  super,
   self,
-  ...
 }: {
   perSystem = {...}: {
     drvs.hello = {
       imports = [
-        self.modules.packages.hello
-        self.modules.nix2dream-core.default
+        root.packages.hello
+        root.nix2dream.all-modules
 
         # run via `nix run n#honcho -- start -f $(nix build --print-out-paths .#packages.x86_64-linux.hello.config.public.service-managers.procfile) hello`
-        self.modules.nix2dream-renderers.procfile
       ];
 
+      #default = {};
       service.args = [
         "-g"
         ''"Hello there, $GENERAL!"''

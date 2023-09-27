@@ -1,4 +1,8 @@
 {
+  root,
+  super,
+  self,
+}: {
   config,
   lib,
   ...
@@ -8,10 +12,6 @@
   # get the derivation of the current package,
   derivation = config.public.out;
 in {
-  imports = [
-    ./args.nix
-  ];
-
   options.service = {
     # TODO set meta.mainProgram as default instead if it is unset.
     mainProgram = l.mkOption {

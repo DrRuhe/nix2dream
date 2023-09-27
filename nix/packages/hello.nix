@@ -1,10 +1,16 @@
 {
+  root,
+  super,
+  self,
+}: {
   config,
   dream2nix,
   ...
 }: {
   # select builtins-derivation as a backend for this package
-  imports = [dream2nix.modules.dream2nix.mkDerivation];
+  imports = [
+    dream2nix.modules.dream2nix.mkDerivation
+  ];
 
   name = "hello";
   version = "2.12";

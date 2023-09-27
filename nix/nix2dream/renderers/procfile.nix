@@ -1,4 +1,8 @@
 {
+  root,
+  super,
+  self,
+}: {
   config,
   lib,
   packageSets,
