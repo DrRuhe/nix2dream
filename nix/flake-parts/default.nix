@@ -1,11 +1,6 @@
-{
-  root,
-  super,
-  self,
-}: {inputs, ...}: {
+# This module configures the devshell and tooling to work on dream2nix.
+{inputs, ...}: {
   imports = [
-    # import the dream2nix integration for flake-parts
-    inputs.dream2nix.modules.flake-parts.dream2nix
     inputs.treefmt-nix.flakeModule
     inputs.pre-commit-hooks-nix.flakeModule
   ];

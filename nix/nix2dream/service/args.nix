@@ -1,8 +1,4 @@
 {
-  root,
-  super,
-  self,
-}: {
   config,
   lib,
   ...

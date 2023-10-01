@@ -9,10 +9,9 @@ Use the NixOs module system turn derivations into services that can be launched/
   - [ ] Kubernetes
   - [ ] Docker Compose
 
-Few features are implemented currently, but I have confidence in the architecture and that it will scale.
+Few features are implemented currently, but I have confidence in the architecture and that it will scale. See the [Roadmap](https://github.com/DrRuhe/nix2dream/issues/1) for the current status.
 
-# Architecture 
-
+# Architecture
 ```mermaid
 flowchart LR
     subgraph nix2dream
@@ -60,34 +59,30 @@ flowchart LR
     
 ```
 
-# Open Questions:
-- API design:
-  - should the options be more "hidden" and should the `service` option contain the "custom" per service options?
-- how to do "multiple services"?
-Docker-Compose inspired:
+# Usage: 
+
+## As a flake-parts module
+To use nix2dream in a flake-parts flake, you can import the flakeModule by adding `inputs.nix2dream.flakeModule` to your imports:
 ```nix
-service-collection.test = {
-  services = {
-    nginx = {
-      imports=[../nginx.nix];
-      service.port = 52131;
-      service.config = {
-              
-      };
-    };
-    postgres = {
-      imports=[./postgres.nix];
-      
-    };
-  };
-}
+imports = [
+    inputs.nix2dream.flakeModule
+];
 ```
-- how to ensure users are aware if a manager does not utilize modules?
-  - let's say we have a service-manager that has no support for env variables. When the user defines env variables via service.env and the service requires them, the service manager would have no way to work, how to notify user?
-  - managers warn if module options are set they don't support? Users should set an option to disable the warning.
+Then, services and deployments can be defined under `perSystems.deployments`. See the [examples](./examples).
 
-# Migrating an Existing Service
 
+## Standalone
+The modules do not require flake-parts and can be integrated into other module-systems by using `inputs.nix2dream.standaloneSubmodule` as a submodule. You can look at `./nix/flake-parts/nix2dream.nix` for a reference on how this is done for integration with the flake-parts module ecosystem.
+
+# Contact
+Feel free to open Issues [here](https://github.com/DrRuhe/nix2dream/issues/new/choose).
+
+
+
+
+
+
+# Migrating an Existing Service:
 
 ## NixOs Services:
 NixOS uses a module system as well to configure services. These services typically expose options under `service.<name>` that are an abstraction layer above `systemd.services.<name>`. As such, migrating a service from nixpkgs requires reimplementation of the module.
@@ -137,22 +132,4 @@ Here is a list of `systemd.services.<name>` options and the equivalent core opti
 - `systemd.services.<name>.aliases`
 - `systemd.services.<name>.after`
 
-# TODO considerations
-What does a Service potentially need?
-
-- Basic Needs:
-    - environment Variables -> ./drv-parts/modules/drv-parts/env/default.nix
-    - config files
-    - command line arguments
-    - Users/Permissions
-
-- Advanced:
-    - Volumes
-        - named directories
-        - can (and should) be done via env-vars
-    - liveness probes?
-    - CLI interface(?)
-
-
-Which modules can encapsulate those needs?
 

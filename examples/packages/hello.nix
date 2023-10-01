@@ -1,12 +1,8 @@
 {
-  root,
-  super,
-  self,
-}: {
   config,
   dream2nix,
   ...
-}: {
+} @ checkinputs: {
   # select builtins-derivation as a backend for this package
   imports = [
     dream2nix.modules.dream2nix.mkDerivation
