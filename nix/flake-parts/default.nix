@@ -41,16 +41,8 @@
       check.enable = false;
       settings = {
         # Automagically uses the defined treefmt because of https://github.com/cachix/pre-commit-hooks.nix/blob/master/flake-module.nix#L71C13-L71C112
-        hooks.treefmt.enable = true;
         hooks.commitizen.enable = true;
-
-        # see https://github.com/cachix/pre-commit-hooks.nix#custom-hooks
-        hooks.nix-flake-check = {
-          enable = true;
-          name = "nix-flake-check";
-          entry = "nix flake check -L";
-          pass_filenames = false;
-        };
+        hooks.treefmt.enable = true;
       };
     };
   };
