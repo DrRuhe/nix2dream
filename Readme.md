@@ -72,7 +72,9 @@ Then, services and deployments can be defined under `perSystems.deployments`. Se
 
 
 ## Standalone
-The modules do not require flake-parts and can be integrated into other module-systems by using `inputs.nix2dream.standaloneSubmodule` as a submodule. You can look at `./nix/flake-parts/nix2dream.nix` for a reference on how this is done for integration with the flake-parts module ecosystem.
+The modules do not require flake-parts and can be integrated into other module-systems by using `inputs.nix2dream.standaloneSubmodule` as a submodule. 
+You can look at `./nix/flake-parts/nix2dream.nix` for a reference on how this is done for integration with the flake-parts module ecosystem.
+It's important that you pass nixpkgs as specialArgs in order for nix2dream internals and dream2nix modules to work correctly. See [`./nix/nix2dream/service/dependencies.nix`](./nix/nix2dream/service/dependencies.nix)
 
 # Contact
 Feel free to open Issues [here](https://github.com/DrRuhe/nix2dream/issues/new/choose).

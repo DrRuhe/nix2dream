@@ -12,7 +12,7 @@ in {
       allTypes = baseTypes ++ [(t.listOf (t.oneOf baseTypes))];
     in
       t.attrsOf (t.nullOr (t.oneOf allTypes));
-    description = "A list of environment variables that are exposed to the service.";
+    description = "Environment variables that are exposed to the service.";
     defaultText = l.literalExpression "{}";
     default = {};
     example = {FOO = "BAR";};

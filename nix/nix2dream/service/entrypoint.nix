@@ -21,16 +21,54 @@ in {
         or derivation.pname
         or derivation.name;
     };
-
-    entrypoint = l.mkOption {
-      type = t.str;
+    preStart = l.mkOption {
+      type = t.oneOf [t.str t.lines];
       description = ''
-        The script that is initialized at startup of the service.
-
-        The entrypoint should contain the values of `service.args` as they are not passed to the entrypoint again.
+        A script that is executed before the mainProgram is called with its arguments
       '';
       defaultText = l.literalExpression ''"$\{derivation}/bin/$\{config.service.mainProgram} $\{l.concatStringsSep " " config.service.args}"'';
-      default = "${derivation}/bin/${config.service.mainProgram} ${l.concatStringsSep " " config.service.args}";
+      default = "";
+    };
+
+    entrypoint = l.mkOption {
+      type = t.package;
+      description = ''
+        The script that is run to start up the service.
+
+        By default, this script handles:
+        - setting env vars
+        - making sure volumes are initialized correctly
+        - running the preStart script
+        - launching the mainProgram with its arguments
+      '';
+      default = let
+        # The env vars cannot be passed as an env file, since that would mean all services share their env vars, which is not desired, as each service sets their own vars.
+        env-setters = l.concatStringsSep "\n" (l.mapAttrsToList (name: value: ''export ${name}=${l.escapeShellArg value}'') config.service.env);
+        volume-initializers = l.concatStringsSep "\n" (l.mapAttrsToList (name: volume: ''
+            # Setting up volume ${name}
+            ${volume.initializeScript}
+            ${
+              if (! volume.persisting)
+              then volume.clearScript
+              else ""
+            }
+            ${volume.checkScript}
+
+          '')
+          config.service.volumes);
+      in
+        config.deps.writeScript "${config.service.mainProgram}-entrypoint" ''
+          set -euo pipefail
+
+          # Setting the env variables
+          ${env-setters}
+
+          ${volume-initializers}
+
+          ${config.service.preStart}
+
+          ${derivation}/bin/${config.service.mainProgram} ${l.concatStringsSep " " config.service.args}
+        '';
     };
   };
 }
