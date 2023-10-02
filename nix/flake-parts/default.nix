@@ -22,7 +22,7 @@
       shellHook = "
                 ${config.pre-commit.installationScript}
 
-                echo Welcome to a generic Flake Project!
+                echo Welcome to the devshell for nix2dream!
             ";
 
       #ENV_VAR="test";
