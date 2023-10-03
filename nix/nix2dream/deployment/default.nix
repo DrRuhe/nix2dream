@@ -31,13 +31,6 @@ in {
       description = "The services that should be deployed";
     };
 
-    # TODO figure out how to give renderers a description here
-    #    renderers = l.mkOption {
-    #      type = t.lazyAttrsOf t.anything;
-    #      default = {};
-    #      description = "Rendered Deployment Configurations per renderer. These can be executed by using the contained files manually or by using a manager";
-    #    };
-
     public.renderers = l.mkOption {
       type = t.lazyAttrsOf (t.submodule {
         options.out = l.mkOption {

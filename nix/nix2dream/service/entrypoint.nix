@@ -40,6 +40,8 @@ in {
         - making sure volumes are initialized correctly
         - running the preStart script
         - launching the mainProgram with its arguments
+
+        So when setting this option yourself, keep in mind that some renderers might build their own entrypoint to better suit their capabilities.
       '';
       default = let
         # The env vars cannot be passed as an env file, since that would mean all services share their env vars, which is not desired, as each service sets their own vars.
