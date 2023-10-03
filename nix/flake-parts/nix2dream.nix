@@ -1,5 +1,6 @@
 # Exposes an option for flake-parts to utilize the deployments module from nix2dream. {
 {
+  config,
   self,
   lib,
   flake-parts-lib,
@@ -42,30 +43,15 @@ in {
         inherit (self') packages;
         nixpkgs = pkgs;
       };
-      description = "Deployments are a collection of services that work together.";
-      example = lib.literalExpression ''
-        TODO write an example for how deployments are configured
-      '';
-    };
-
-    #TODO: Expose the rendered configs somehow
-    #    config.packages.honchotest = config.deployments.hello.services.hello;
-    config.packages.honchotest = config.deployments.hello.public.renderers.procfile.managers.honcho.start;
-
-    #    let
-    #        deployments = l.mapAttrs (name: deployment: deployment.public.renderers) ((_:break _) config.deployments);
-    #    in
-    #        deployments;
-  };
-
-  options.flake = flake-parts-lib.mkSubmoduleOptions {
-    deployments = l.mkOption {
-      # TODO: make this more strict
-      type = t.nullOr t.raw;
-      default = {};
-      description = ''
-        See {option}`perSystem.deployments` for description and examples.
-      '';
+      description = "Package sets that get passed as specialArgs to the deployment submodules, allowing them to pick their dependencies from these sources";
     };
   };
+
+  config.flake.deployments = l.mapAttrs (system: v:
+    l.mapAttrs (
+      name: deployment:
+        deployment.public.renderers
+    )
+    v.deployments)
+  config.allSystems;
 }
