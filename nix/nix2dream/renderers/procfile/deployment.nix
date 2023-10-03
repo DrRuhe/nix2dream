@@ -11,6 +11,7 @@
 in {
   imports = [
     ./managers/honcho.nix
+    ./managers/hivemind.nix
   ];
   # Declare specialized options like this:
   #options.renderers."NAME"
