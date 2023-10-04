@@ -18,7 +18,6 @@
         ./nix/flake-parts
         ./nix/flake-parts/nix2dream.nix
         ./examples/deployments/hello.nix
-        ./examples/deployments/postgres.nix
         ./examples/deployments/nginx.nix
       ];
 
