@@ -1,4 +1,5 @@
 .idea
 .direnv
 .pre-commit-config.yaml
+.volumes
 result

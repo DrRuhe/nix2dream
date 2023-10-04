@@ -1,6 +1,11 @@
 {self, ...}: {
   perSystem = {...}: {
-    # run via `nix run n#honcho -- start -f $(nix build --print-out-paths .#packages.x86_64-linux.hello.config.public.service-managers.procfile) hello`
+    # With this deployment the renderers and managers defined allow you to:
+    # run it:
+    #   - `nix run .#deployments.x86_64-linux.hello.procfile.managers.honcho.start` runs as a procfile-based application using honcho
+    #   - `nix run .#deployments.x86_64-linux.hello.procfile.managers.hivemind.start` runs as a procfile-based application using hivemind
+    # build artifacts to use otherwise:
+    #   - `nix run .#deployments.x86_64-linux.hello.procfile.out`
     deployments.hello.services = {
       hello = {
         imports = [
