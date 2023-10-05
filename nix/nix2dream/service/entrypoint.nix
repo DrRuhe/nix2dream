@@ -10,17 +10,26 @@
 in {
   options.service = {
     # TODO set meta.mainProgram as default instead if it is unset.
-    mainProgram = l.mkOption {
+    mainProgramName = l.mkOption {
       type = t.str;
       description = ''
-        The binary name that gets executed
-        Logic taken from the "description" section of `nix run --help`
+        The name of the binary that gets executed
+        The logic for the default value is taken from the "description" section of `nix run --help`
       '';
       default =
         derivation.meta.mainProgram
         or derivation.pname
         or derivation.name;
     };
+
+    mainProgram = l.mkOption {
+      type = t.str;
+      description = ''
+        The binary that gets executed.
+      '';
+      default = "${derivation}/bin/${config.service.mainProgramName}";
+    };
+
     preStart = l.mkOption {
       type = t.oneOf [t.str t.lines];
       description = ''
@@ -69,7 +78,7 @@ in {
 
           ${config.service.preStart}
 
-          ${derivation}/bin/${config.service.mainProgram} ${l.concatStringsSep " " config.service.args}
+          ${config.service.mainProgram} ${l.concatStringsSep " " config.service.args}
         '';
     };
   };
