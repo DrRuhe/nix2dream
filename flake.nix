@@ -27,7 +27,7 @@
 
       flake = {
         flakeModule = ./nix/flake-parts/nix2dream.nix;
-        standaloneSubmodule = ./nix/nix2dream/dpeloyment;
+        standaloneSubmodule = ./nix/nix2dream/deployment;
       };
     };
 }

@@ -6,9 +6,10 @@
 }: let
   l = lib // builtins;
   t = l.types;
-  pkgs = specialArgs.nixpkgs;
+  deps = config.deps;
+  services = config.services;
 in {
-  options.service-managers.procfile = {
+  options.renderers.procfile = {
     launchCommand = l.mkOption {
       type = t.oneOf [t.str t.package];
       description = ''

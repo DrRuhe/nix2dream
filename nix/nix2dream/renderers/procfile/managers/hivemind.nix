@@ -7,7 +7,6 @@
   l = lib // builtins;
   t = l.types;
   pkgs = specialArgs.nixpkgs;
-
   services = config.services;
   settings = config.public.renderers.procfile;
   rendered = config.public.renderers.procfile.out;

@@ -7,6 +7,7 @@
   l = lib // builtins;
   t = l.types;
   pkgs = specialArgs.nixpkgs;
+
   services = config.services;
 in {
   imports = [
@@ -18,7 +19,7 @@ in {
 
   # TODO this is likely broken
   config.public.renderers.procfile.out = let
-    launchScripts = builtins.mapAttrs (serviceName: service: service.service-managers.procfile.launchCommand) config.services;
+    launchScripts = builtins.mapAttrs (serviceName: service: service.renderers.procfile.launchCommand) config.services;
     procfileLines = l.mapAttrsToList (serviceName: launchScript: "${serviceName}: ${launchScript}") launchScripts;
   in
     #TODO Get the name of the deployment here to allow customized name of procfile

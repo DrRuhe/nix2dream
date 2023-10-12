@@ -55,8 +55,7 @@ in {
 
   config = {
     name = "nginx";
-    # TODO (dream2nix improvement) how to extract the version from nixpkgs.postgresql.version?
-    version = "1.24.0";
+    version = config.deps.nginx.version;
 
     deps = {nixpkgs, ...}: {
       inherit

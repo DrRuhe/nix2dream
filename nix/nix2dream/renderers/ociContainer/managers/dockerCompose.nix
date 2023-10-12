@@ -11,9 +11,6 @@
   #settings = config.public.renderers."MANAGER";
   #rendered = config.public.renderers."MANAGER".out;
 in {
-  # Declare specialized options like this:
-  # options.renderers."Renderer".managers."Manager".XY
-
   # Write Actions under
-  #config.public.renderers."RENDERER".managers."MANAGER"."ACTION-NAME" = pkgs.writeScriptBin "action-name" "echo Hello World!";
+  config.public.renderers.ociContainer.managers.dockerCompose.up = pkgs.writeScriptBin "docker-compose-up" ''echo "This is a placeholder for docker compose up :)"'';
 }

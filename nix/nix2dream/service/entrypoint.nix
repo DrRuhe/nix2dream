@@ -69,6 +69,7 @@ in {
           config.service.volumes);
       in
         config.deps.writeScript "${config.service.mainProgram}-entrypoint" ''
+          #!${config.deps.bash}/bin/bash
           set -euo pipefail
 
           # Setting the env variables

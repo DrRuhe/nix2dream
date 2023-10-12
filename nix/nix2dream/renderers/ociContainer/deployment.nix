@@ -7,14 +7,16 @@
 }: let
   l = lib // builtins;
   t = l.types;
-  deps = config.deps;
+  pkgs = specialArgs.nixpkgs;
+
   services = config.services;
 in {
   imports = [
-    #./managers/NAME/service.nix
+    ./managers/dockerCompose.nix
+    ./managers/skopeo/deployment.nix
   ];
+
   # Declare specialized options like this:
-  #options.renderers."NAME"
 
   # Write a Package to:
   #config.public.renderers."NAME".out

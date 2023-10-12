@@ -9,8 +9,8 @@
   t = l.types;
 in {
   imports = [
-    ./../renderers/procfile/deployment.nix
-    ./drv-parts-compat.nix
+    ./../renderers/allDeployments.nix
+    ./drvPartsCompat.nix
   ];
 
   options = {

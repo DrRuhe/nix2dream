@@ -8,12 +8,10 @@
   l = lib // builtins;
   t = l.types;
   deps = config.deps;
-  services = config.services;
+  #rendererCfg = config.service.renderers."RENDERER";
+  #managerCfg = rendererCfg.managers."MANAGER";
 in {
-  imports = [
-    #./managers/NAME/service.nix
-  ];
-  #  options.service.renderers."NAME" = {
+  #  options.service.renderers."MANAGER_NAME".managers."RENDERER_NAME" = {
   #    optionName = l.mkOption {
   #      type = t.oneOf [t.str t.package];
   #      description = ''
