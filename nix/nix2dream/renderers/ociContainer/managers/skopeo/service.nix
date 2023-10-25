@@ -20,8 +20,8 @@ in {
       description = ''
         A function that takes a docker image label as an argument and returns the necessary script lines to push the service container there.
       '';
-      default = image-tag: ''
-        ${deps.skopeo}/bin/skopeo copy --insecure-policy docker-archive:${container} ${image-tag}
+      default = imageTag: ''
+        ${deps.skopeo}/bin/skopeo copy --insecure-policy docker-archive:${container} ${imageTag}
       '';
     };
 
@@ -31,7 +31,7 @@ in {
         Script lines to push the container to the local registry
       '';
       default = let
-        skopeoCopyInstructions = l.map (image-tag: managerCfg.pushBuilder "docker-daemon:${image-tag}") rendererCfg.image-tags;
+        skopeoCopyInstructions = l.map (imageTag: managerCfg.pushBuilder "docker-daemon:${imageTag}") rendererCfg.allImageTags;
       in (l.concatStringsSep "\n" skopeoCopyInstructions);
     };
   };

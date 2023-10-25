@@ -18,6 +18,9 @@
             ''"Hello there, $GENERAL!"''
           ];
           env.GENERAL = "General Kenobi";
+          renderers.ociContainer.extraImageTags = [
+            "kenobi-greeter:latest"
+          ];
         };
       };
       other-service = {

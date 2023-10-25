@@ -12,7 +12,7 @@
   services = config.services;
 in {
   imports = [
-    ./managers/dockerCompose.nix
+    ./managers/dockerCompose/deployment.nix
     ./managers/skopeo/deployment.nix
   ];
 
